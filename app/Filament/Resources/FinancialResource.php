@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FinancialResource\Pages;
-use App\Filament\Resources\FinancialResource\RelationManagers;
 use App\Models\Financial;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FinancialResource extends Resource
 {
@@ -33,9 +31,8 @@ class FinancialResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('total')
-                    ->required(),
-				Forms\Components\TextInput::make('burat')
-                    ->required(),
+                  ->required(),
+                SpatieMediaLibraryFileUpload::make('receipts')
             ]);
     }
 
@@ -59,14 +56,14 @@ class FinancialResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -75,5 +72,5 @@ class FinancialResource extends Resource
             'view' => Pages\ViewFinancial::route('/{record}'),
             'edit' => Pages\EditFinancial::route('/{record}/edit'),
         ];
-    }    
+    }
 }

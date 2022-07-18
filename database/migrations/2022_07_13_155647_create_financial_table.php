@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('financials', function (Blueprint $table) {
             $table->id();
-			$table->string('condo_unit'); $table->string('name');
-			$table->string('type');
-			$table->integer('total');
+            $table->string('condo_unit');
+            $table->string('name');
+            $table->string('type');
+            $table->integer('total');
             $table->timestamps();
         });
     }

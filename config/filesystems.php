@@ -29,7 +29,12 @@ return [
     */
 
     'disks' => [
-
+        'receipts' => [
+            'driver' => 'local',
+            'root' => storage_path('receipts'),
+            'url' => env('APP_URL').'/receipts',
+            'throw' => false,
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

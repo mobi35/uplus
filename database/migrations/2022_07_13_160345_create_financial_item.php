@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('financial_items', function (Blueprint $table) {
             $table->id();
-			$table->foreignId('financial_id');
-			$table->string('name');
-			$table->integer('expense');
+            $table->foreignId('financial_id');
+            $table->string('name');
+            $table->integer('expense');
             $table->timestamps();
         });
     }
