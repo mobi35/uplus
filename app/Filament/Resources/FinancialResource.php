@@ -23,17 +23,36 @@ class FinancialResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('building_id')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\BelongsToSelect::make('building_id')
+					->relationship('building', 'unit_number')
+					->required(),
                 Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('type')
-                    ->required()
-                    ->maxLength(255),
+				Forms\Components\RichEditor::make('body'),
+                Forms\Components\Select::make('type')
+
+				->options([
+					'dues' => 'Dues',
+					'bill' => 'Bill',
+					'repair'=> 'Repair',
+					'fare' => 'Fare',
+					'bank' => 'Bank' 
+				])->required(),
+				Forms\Components\Select::make('payment_type')
+				->options([
+					'revenue' => 'Revenue',
+					'expenses' => 'Expenses',
+				])->required(),
                 Forms\Components\TextInput::make('total')
-                    ->required(),
+				->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
+				->money('P ')
+				->numeric()
+				->thousandsSeparator(',')
+				->decimalPlaces(2)
+				)->required(),
+				Forms\Components\SpatieMediaLibraryFileUpload::make('receipts')->multiple()
+
             ]);
     }
 
@@ -41,14 +60,14 @@ class FinancialResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('building_id'),
+                Tables\Columns\TextColumn::make('payment_type'),
+                Tables\Columns\TextColumn::make('building.unit_number'),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('type'),
                 Tables\Columns\TextColumn::make('total'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+               
             ])
             ->filters([
                 //

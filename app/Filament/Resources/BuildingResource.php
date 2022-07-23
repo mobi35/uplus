@@ -60,6 +60,8 @@ class BuildingResource extends Resource
                 Forms\Components\TextInput::make('city')
                     ->required()
                     ->maxLength(255),
+				Forms\Components\SpatieMediaLibraryFileUpload::make('images')->multiple()
+
             ]);
     }
 

@@ -23,11 +23,13 @@ class AmenityResource extends Resource
     {
         return $form
             ->schema([
+		 Forms\Components\BelongsToSelect::make('building_id')
+					->relationship('building', 'unit_number')
+					->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('building_id')
-                    ->required(),
+				Forms\Components\SpatieMediaLibraryFileUpload::make('images')->multiple()
             ]);
     }
 
@@ -36,7 +38,7 @@ class AmenityResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('building_id'),
+                Tables\Columns\TextColumn::make('building.unit_number'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

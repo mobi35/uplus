@@ -16,18 +16,12 @@ class Financial extends Model implements HasMedia
         'id',
     ];
 
-  public function attachLogo($path, $fileName = ''): self
-    {
-        if ($fileName === '') {
-            $extension = Str::afterLast($path, '.');
-            $fileName = strtolower(str_replace(['#', '/', '\\', ' '], '-', $this->name)).'_'.$this->id.'.'.$extension;
-        }
+	protected $casts = [
+		'receipts' => 'array'
+	];
 
-        $this->addMedia($path)
-            ->usingFileName($fileName)
-            ->usingName($this->name.'_'.$this->id)
-            ->toMediaCollection('receipts');
-
-        return $this;
-    }
+	public function building()
+	{
+		return $this->belongsTo(Building::class);
+	}
 }
