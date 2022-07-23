@@ -14,7 +14,8 @@ class ShowFinances extends Component
 		->get();
 
 		return view('livewire.show-finances', [
-			'expenses' => $expenses 
+			'expenses' => $expenses,
+			'currentMoney' => $expenses[0]->total - $expenses[1]->total
 		]);
     }
 }

@@ -20,5 +20,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'mobistyle35@gmail.com',
             'password' => bcrypt('Asakaboi35'),
         ]);
+
+	\App\Models\User::factory()->create([
+            'name' => 'jay',
+            'email' => 'jay@china.com',
+            'password' => bcrypt('china'),
+        ]);
+	
+	\App\Models\User::factory()->create([
+            'name' => 'mae',
+            'email' => 'mae@ph.com',
+            'password' => bcrypt('mae'),
+        ]);
     }
 }

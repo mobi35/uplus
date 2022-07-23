@@ -1,5 +1,8 @@
 <div>
 
+
+		<h1 class="text-2xl "> Money I have is {{  '₱' .number_format($currentMoney, 2) }} </h1>
+
 	<div class="my-4 flex  ">
 	@foreach($expenses as $expense)
 		<div class="mx-4 space-x-4 flex items-center">
