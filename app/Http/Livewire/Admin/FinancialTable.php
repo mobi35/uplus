@@ -56,8 +56,8 @@ class FinancialTable extends DataTableComponent
                 ->sortable()
                 ->searchable()
 				->footer(function ($rows) {
-			return '₱ ' .number_format($rows->sum('total'), 2);
-			}),
+		return 'Total: ₱ ' .number_format($rows->where('payment_type', 'revenue')->sum('total')  - $rows->where('payment_type', 'expenses')->sum('total')  , 2);
+		}),
 
 		
 		   Column::make('created_at')
