@@ -44,7 +44,6 @@ class BuildingContactResource extends Resource
                 Tables\Columns\TextColumn::make('phone'),
                 Tables\Columns\TextColumn::make('building.name'),
                 Tables\Columns\TextColumn::make('building.room')->label('Unit'),
-      
             ])
             ->filters([
                 //

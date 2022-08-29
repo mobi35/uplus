@@ -25,5 +25,15 @@ class Building extends Model implements HasMedia
 		return $this->hasMany(BuildingContact::class);
 	}
 
+	public function owner()
+	{
+		return $this->belongsTo(Owner::class);
+	}
+
+	public function moderators()
+	{
+		return $this->belongsToMany(FilamentUser::class);
+	}
+
 
 }

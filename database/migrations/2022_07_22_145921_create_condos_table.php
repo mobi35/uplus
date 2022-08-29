@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->string('type');
 			$table->string('room');
 			$table->integer('floor');
-			$table->string('owner');
+			$table->foreignId('owner_id');
 			$table->float('price');
 			$table->float('rent_price');
 			$table->string('address');

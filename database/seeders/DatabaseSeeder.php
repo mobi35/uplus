@@ -32,5 +32,24 @@ class DatabaseSeeder extends Seeder
             'email' => 'mae@ph.com',
             'password' => bcrypt('mae'),
         ]);
-    }
+
+    
+
+
+	\App\Models\Owner::factory()->create([
+			'name' => 'Xin Wang',
+			'address' => 'Numancia St. Manila',
+			'nationality' => 'Chinese'
+	]);
+
+	\App\Models\Owner::factory()->create([
+			'name' => 'Jinhai Wang',
+			'address' => '1110 Parc Royale Condo',
+			'nationality' => 'Chinese'
+	]);
+
+
+
+	}
+
 }
