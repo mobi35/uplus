@@ -20,7 +20,7 @@ class BuildingPolicy
    
 	public function viewAny(FilamentUser $user): bool
 	{
-		return $user->can('buildings.view');
+		return true;
 	} 
 
     /**
@@ -33,7 +33,7 @@ class BuildingPolicy
     public function view(FilamentUser $user, Building $building)
     {
 
-		return $user->can('buildings.viewpage');
+		return $user->roles->pluck('name')[0] === 'super-admin';
         //
     }
 
@@ -46,8 +46,7 @@ class BuildingPolicy
     public function create(FilamentUser $user)
     {
 
-		return $user->can('buildings.create');
-        //
+		return $user->roles->pluck('name')[0] === 'super-admin';
     }
 
     /**
@@ -60,7 +59,9 @@ class BuildingPolicy
     public function update(FilamentUser $user, Building $building)
     {
         //
-		return $user->can('buildings.update');
+
+		return $user->roles->pluck('name')[0] === 'super-admin';
+
     }
 
     /**
@@ -73,8 +74,7 @@ class BuildingPolicy
     public function delete(FilamentUser $user, Building $building)
     {
         //
-
-		return $user->can('buildings.delete');
+return $user->roles->pluck('name')[0] === 'super-admin';
     }
 
     /**

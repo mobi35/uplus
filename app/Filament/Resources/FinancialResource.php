@@ -102,18 +102,16 @@ class FinancialResource extends Resource
                 ->form([
                     Forms\Components\MultiSelect::make('buildings')
 					->options(
-							array_merge( ['all' => 'all'], array_combine($id->toArray(),$unit_number->toArray()) )
-						)->default(['all'])->label('Buildings'),
+							 array_combine($id->toArray(),$unit_number->toArray()) 
+						)->label('Buildings'),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
-					if( isset($data['buildings'][0]) && $data['buildings'][0] === 'all' ) {
+					if( !count($data['buildings']) && Filament::auth()->user()->roles->toArray()[0]['name'] === 'super-admin' ) {
 						return $query;
 					}
-
 					return $query->whereHas('building', function ($q) use($data) {
 						$q->whereIn('unit_number', $data['buildings']);
 					});
-
 				}),
 
     Filter::make('date_transacted')

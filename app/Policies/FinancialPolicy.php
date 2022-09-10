@@ -20,7 +20,7 @@ class FinancialPolicy
    
 	public function viewAny(FilamentUser $user): bool
 	{
-		return $user->can('financial.view');
+		return true;
 	} 
 
     /**
@@ -32,7 +32,7 @@ class FinancialPolicy
      */
     public function view(FilamentUser $user, Financial $building)
     {
-		return $user->can('financial.viewpage');
+	    return true;
         //
     }
 
@@ -44,7 +44,7 @@ class FinancialPolicy
      */
     public function create(FilamentUser $user)
     {
-		return $user->can('financial.create');
+		return $user->roles->pluck('name')[0] === 'super-admin';
     }
 
     /**
@@ -56,7 +56,7 @@ class FinancialPolicy
      */
     public function update(FilamentUser $user, Financial $building)
     {
-		return $user->can('financial.update');
+		return $user->roles->pluck('name')[0] === 'super-admin';
     }
 
     /**
@@ -70,7 +70,7 @@ class FinancialPolicy
     {
         //
 
-		return $user->can('financial.delete');
+		return $user->roles->pluck('name')[0] === 'super-admin';
     }
 
     /**

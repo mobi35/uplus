@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-			$table->string('type');
+        Schema::table('lease_contracts', function (Blueprint $table) {
+            $table->text('body')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-			$table->dropColumn('type');
+        Schema::table('lease_contracts', function (Blueprint $table) {
+			$table->dropColumn('body');
         });
     }
 };
