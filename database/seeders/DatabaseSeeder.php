@@ -33,9 +33,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('mae'),
         ]);
 
-    
-
-
 	\App\Models\Owner::factory()->create([
 			'name' => 'Xin Wang',
 			'address' => 'Numancia St. Manila',

@@ -106,7 +106,7 @@ class FinancialResource extends Resource
 						)->label('Buildings'),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
-					if( !count($data['buildings']) && Filament::auth()->user()->roles->toArray()[0]['name'] === 'super-admin' ) {
+					if( !count($data['buildings']) && count(Filament::auth()->user()->roles->toArray()) > 0 && Filament::auth()->user()->roles->toArray()[0]['name']  === 'super-admin' ) {
 						return $query;
 					}
 					return $query->whereHas('building', function ($q) use($data) {
@@ -147,7 +147,8 @@ class FinancialResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                ExportBulkAction::make()
+                ExportBulkAction::make(),
+          
             ]);
     }
     

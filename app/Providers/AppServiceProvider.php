@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
 		Livewire::component('financial.table', FinancialTable::class);
     }
 }

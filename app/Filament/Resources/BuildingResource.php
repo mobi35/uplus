@@ -2,22 +2,22 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use App\Models\Building;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Facades\Filament;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\MultiSelect;
+use Filament\Tables\Filters\MultiSelectFilter;
 use App\Filament\Resources\BuildingResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Chiiya\FilamentAccessControl\Models\FilamentUser;
 use App\Filament\Resources\BuildingResource\RelationManagers;
 use App\Filament\Resources\BuildingResource\Widgets\BuildingDetailsWidget;
-use App\Models\Building;
-use App\Models\FilamentUser;
-use Filament\Facades\Filament;
-use Filament\Forms;
-use Filament\Forms\Components\MultiSelect;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables;
-use Filament\Tables\Filters\MultiSelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
 
 class BuildingResource extends Resource
 {

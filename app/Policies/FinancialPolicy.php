@@ -44,7 +44,7 @@ class FinancialPolicy
      */
     public function create(FilamentUser $user)
     {
-		return $user->roles->pluck('name')[0] === 'super-admin';
+		return $user->roles->pluck('name')[0] ?? '' === 'super-admin';
     }
 
     /**
