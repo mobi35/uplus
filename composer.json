@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1|^8.0",
+        "alperenersoy/filament-export": "^0.2.1",
         "ariaieboy/filament-jalali-datetimepicker": "^1.0",
         "chiiya/filament-access-control": "^1.5",
         "doctrine/dbal": "^3.3",

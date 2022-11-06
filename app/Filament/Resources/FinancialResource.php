@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use App\Filament\Resources\FinancialResource\RelationManagers;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Resources\FinancialResource\Widgets\StatOverview;
 use App\Filament\Resources\FinancialResource\Widgets\FinancialOverview;
 use App\Filament\Resources\FinancialResource\Widgets\FinancialWidgetTable;
@@ -76,9 +77,13 @@ class FinancialResource extends Resource
     public static function table(Table $table): Table
     {
 
+
+
 		$arr =  Building::with(['moderators'])->whereHas('moderators', function ($q) {
 			$q->where('filament_users.id', Filament::auth()->user()->id);
 		})->get();
+
+        // dd($arr);
 
 		$id = collect($arr)->map(function ($item) {
 			return $item['unit_number'];
@@ -89,6 +94,7 @@ class FinancialResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('payment_type'),
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('building.unit_number'),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('type'),
@@ -96,19 +102,25 @@ class FinancialResource extends Resource
                 Tables\Columns\TextColumn::make('date_transacted')
                     ->dateTime(),
                
-            ])
+            ])->defaultSort('id', 'desc')
             ->filters([
 				MultiSelectFilter::make('status')
                 ->form([
                     Forms\Components\MultiSelect::make('buildings')
 					->options(
-							 array_combine($id->toArray(),$unit_number->toArray()) 
+                            array_merge( 
+							 array_combine($id->toArray(),$unit_number->toArray()), ['all' => 'all']  )
 						)->label('Buildings'),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
+                    
 					if( !count($data['buildings']) && count(Filament::auth()->user()->roles->toArray()) > 0 && Filament::auth()->user()->roles->toArray()[0]['name']  === 'super-admin' ) {
 						return $query;
 					}
+
+                    if ($data['buildings'][0] === 'all')
+                        return $query;
+
 					return $query->whereHas('building', function ($q) use($data) {
 						$q->whereIn('unit_number', $data['buildings']);
 					});
@@ -147,9 +159,16 @@ class FinancialResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                ExportBulkAction::make(),
+                FilamentExportBulkAction::make('export')
+
+                // ExportBulkAction::make(),
+                // FilamentExportBulkAction::make('export')
+
           
             ]);
+
+
+
     }
     
     public static function getRelations(): array
@@ -162,7 +181,8 @@ class FinancialResource extends Resource
     public function getTableBulkActions()
     {
         return  [
-            ExportBulkAction::make()
+
+            // ExportBulkAction::make()
         ];
     }
     
